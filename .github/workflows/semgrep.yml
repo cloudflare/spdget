@@ -1,0 +1,18 @@
+name: Semgrep
+
+on:
+  pull_request: {}
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - .github/workflows/semgrep.yml
+  schedule:
+    # random HH:MM to avoid a load spike on GitHub Actions at 00:00
+    - cron: '20 17 * * *'
+jobs:
+  call-semgrep:
+    uses: cloudflare/advisories/.github/workflows/semgrep.yml@main
+    secrets: 
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
